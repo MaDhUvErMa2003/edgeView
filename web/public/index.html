@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge Detection Viewer - Web</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .viewer-section {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        #frame-container {
+            position: relative;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        #processed-frame {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .info-section {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .info-section h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .info-section p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4caf50;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🎨 Edge Detection Viewer</h1>
+    <p class="subtitle">
+        <span class="status-indicator"></span>
+        Real-time OpenCV Processing - Web Interface
+    </p>
+
+    <div class="viewer-section">
+        <div id="frame-container">
+            <img id="processed-frame" src="sample.png" alt="Processed Frame">
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">FPS</div>
+                <div class="stat-value" id="fps-value">25</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Resolution</div>
+                <div class="stat-value" id="resolution-value">1920x1080</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Processing Time</div>
+                <div class="stat-value" id="time-value">40ms</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Mode</div>
+                <div class="stat-value" id="mode-value">EDGES</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="btn-original">Original</button>
+            <button id="btn-grayscale">Grayscale</button>
+            <button id="btn-edges">Edge Detection</button>
+            <button id="btn-refresh">Refresh Frame</button>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <h3>📋 About This Viewer</h3>
+        <p>
+            This TypeScript-based web viewer demonstrates the output of the Android
+            edge detection app. Frames are processed using OpenCV (C++) on device,
+            and this interface displays sample outputs with real-time statistics.
+            Built with TypeScript, compiled with <code>tsc</code>, and integrated
+            with the native Android processing pipeline via JNI.
+        </p>
+    </div>
+</div>
+
+<script type="module" src="../dist/app.js"></script>
+</body>
+</html>
